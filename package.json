@@ -1,0 +1,16 @@
+{
+	"name"		  :"ProyectoIC",
+	"version"	  :"0.0.1",
+	"author"	  :"brian esteban bustos baquero",
+	"description" :"aplicacion web de manejo de inventario",
+	"dependencies" :{
+		"express" 	:"3.0.0",
+		"ejs"	  	:"*",
+		"mongoose"	:"3.8.0",
+		"nodemailer":"*",
+		"bcryptjs"	: "*"
+	},
+	"engines"	:{
+		"node"	:">=0.10"
+	}
+}
