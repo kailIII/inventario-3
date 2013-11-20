@@ -1,4 +1,25 @@
 $(document).ready(function(){
+	$('#lienzo').on('click', '#btnnuevo', function (e) {
+		e.preventDefault();
+		var nombre = $('input[name=nombre]').val();
+		var cantidad = $('input[name=cantidad]').val();
+		var precio = $('input[name=precio]').val();
+		var bodega = $('input[name=bodega]').val();
+		var enviar = {};
+		enviar.nombre = nombre;
+		enviar.cantidad = cantidad;
+		enviar.precio = precio;
+		enviar.bodega = bodega;
+		$.post('/bodegas/ingrese', enviar, function (data) {
+			$('#nuevoproducto form').fadeOut(function () {
+				$(this).remove().parent().append(data);
+				setTimeout(function(){
+					$(this).text.remove();
+				},5000);	
+
+			});
+		});
+	});
 	//----------------------------------------------
 	/*  trae los usuarios y los ordena               */
 	//----------------------------------------------
@@ -28,7 +49,17 @@ $(document).ready(function(){
 		if(busqueda!==''){
 		$.get('/usuarios/'+busqueda,
 			function(datos){
-				$('#lienzo').append(datos.nombre+'\n'+datos.correo+'\n'+datos.activa);
+				if(typeof(datos)==='object'){
+					$('#lienzo').append('<div>'+
+									datos.nombre +
+									datos.correo + 
+									datos.activa +
+					                '<div class="cerrarEste">cerrar</div> </div>');
+				}else{
+					$('#lienzo').append('<div>'+
+										datos+
+										'<div class="cerrarEste">cerrar</div> </div>');
+				}
 			}
 		);
 		}else{
@@ -50,7 +81,7 @@ $(document).ready(function(){
 			bodega:bodega
 		};
 		$.post('/usuarios/ingrese', datos,function (data) {
-			$('#lienzo').children('form').remove();
+			$('#lienzo').children('div').remove();
 			$('#lienzo').append('<div><p>'+ data +'</p> <div class="cerrarEste">cerrar</div></div>');
 		});
 	});
@@ -58,7 +89,9 @@ $(document).ready(function(){
 	/*  saca lo de la panta                           */
 	//----------------------------------------------
 	$('#lienzo').on('click','.cerrarEste',function(){
-		$('#lienzo').children('div').fadeOut(function () {
+		$(this)
+		.parent('div')
+		.fadeOut(function () {
 			$(this).remove();
 		});
 	});
@@ -85,7 +118,7 @@ $(document).ready(function(){
 		e.preventDefault();
 		switch(this.text){
 			case 'Ingresar':
-				$('#lienzo').append('<form class="menores">'+
+				$('#lienzo').append('<div><form class="menores">'+
 										'<label for="nombre">Usuario:</label>'+
 										'<input type="text" name="nombre" id="nombre" placeholder="nombre" required>'+
 										'<label for="correo">Correo:</label>'+
@@ -93,19 +126,46 @@ $(document).ready(function(){
 										'<label for="bodega">Bodega:</label>'+
 										'<input type="text" name="bodega" id="bodega" placeholder="bodega" required>'+
 										'<input id="nuevo" type="submit" class="borde-gris sombra" value="Enviar">'+	
-									'</form>');
+									'</form><div class="cerrarEste">cerrar</div></div>');
 			break;
 			case "Eliminar":
-				$('#lienzo').append('<form class="menores">'+
+				$('#lienzo').append('<div><form class="menores">'+
 										'<label for="nombre">nombre</label>'+
 										'<input type="text" name="nombre" id="nombre" placeholder="nombre" required>'+
 										'<label for="correo">correo</label>'+
 										'<input type="email" name="correo" id="correo" placeholder="correo@correo.com" required>'+
 										'<input id="elimine" type="submit" class="borde-gris sombra" value="Enviar">'+	
-									'</form>');
+									'</form><div class="cerrarEste">cerrar</div></div>');
 			break;
 			default:
 			break;
 		}
+	});
+	//----------------------------------------------
+	/* lo mimo que el de arriba pero para otro       */
+	//----------------------------------------------
+	$('#links2 li a').on('click',function (e) {
+		e.preventDefault();
+		switch(this.text){
+			case "Nuevo":
+					$('#lienzo').append('<section id="nuevoproducto" class="nuevo">'+
+											'<form>'+
+											'<label for="nombre">nombre:</label>'+
+												'<input type="text" name="nombre" placeholder="nombre">'+
+												'<input type="text" name="cantidad" placeholder="cantidad">'+
+												'<input type="text" name="precio" placeholder="precio">'+
+												'<input type="text" name="bodega" placeholder="bodega">'+
+												'<input id="btnnuevo" type="submit" class="borde-gris">'+
+											'</form>'+
+										'</section>');
+			break;
+			case "Eliminar":
+			
+			break;
+			case "Listar":
+
+			break;
+		}
+
 	});
 });

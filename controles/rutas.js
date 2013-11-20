@@ -6,6 +6,7 @@ var usuario = require("./usuario");
 var bodegas = require("./bodegas");
 var histori = require("./historiales");
 var total   = require("./total");
+var cambio  = require("./cambio");
 
 /*-------------muy sexi barra separadora---------------*/
 
@@ -25,14 +26,14 @@ exports.rutas = function (app) {
 	app.post('/usuarios/ingrese',usuario.ingrese);
 	app.post('/usuarios/actualice',usuario.actualice);
 	app.post('/usuarios/elimine',usuario.elimine);
-	app.get('empleado/:id',activar.activeEmpleado);
+	app.get('/empleado/:id',activar.activeEmpleado);
 
 	app.get("/bodegas",bodegas.bodegas);
-	app.get("/bodegas/ingrese",bodegas.ingrese);	
-	app.get("/historiales",function(req, res){
-		res.send("hola puto mundo");
-	});
-	app.get("/total",function(req, res){
-		res.send("hola puto mundo");
-	});
+	app.post("/bodegas/ingrese",bodegas.ingrese);	
+
+	app.get("/historiales",histori.historial);
+	
+	app.get("/total",total.total);
+
+	app.post('/cambio/empleado',cambio.contraseñaEmpleado);
 }

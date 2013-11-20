@@ -27,14 +27,16 @@ exports.consiga = function(req, res, next){
 		if (err) {
 			return next(err);
 		}
-		if(respuesta==null){
-console.log("he aqui tu respuesta:"+respuesta+"\n");}
-		var datosamostrar = {};
-		datosamostrar.nombre = respuesta[0].nombre;
-		datosamostrar.correo = respuesta[0].correo;
-		datosamostrar.bodega = respuesta[0].bodega;
-		datosamostrar.activa = respuesta[0].activa;
-		res.send(datosamostrar);
+		if(respuesta.length===0){
+			res.send('no hemos encontrado el usuario');
+		}else{
+			var datosamostrar = {};
+			datosamostrar.nombre = respuesta[0].nombre;
+			datosamostrar.correo = respuesta[0].correo;
+			datosamostrar.bodega = respuesta[0].bodega;
+			datosamostrar.activa = respuesta[0].activa;
+			res.send(datosamostrar);	
+		}
 				
 	}	
 }
@@ -71,14 +73,14 @@ exports.ingrese = function(req, res, next){
 			res.send('Ha ocurrido un error porfavor intentalo mas tarde');
 		}else{
 			console.log('se ha ingresado como: \n'+resultado);
+
 			var titulo = 'Hola nuevo abministrador';
 			var mensage = 'hola se te ha creado una cuenta en el <b>manejador de inventario</b> '+
 						  'porfavor dirigete al enlase abjunto para cambiar la contraseña '+
-						  '<a href="localhost:3000/empleado/'+ resultado.id +'"> aqui </a>' ;
+						  '<a href="http://localhost:3000/empleado/'+ resultado.id +'"> aqui </a>' ;
 			correo.enviar(titulo, mensage, correoElectronico);
-			console.log('equipo azul');
 
-
+			res.send('se ha enviado');
 		}
 	}
 }
@@ -95,11 +97,13 @@ exports.elimine = function(req, res){
 	madb.empleados.find(InfoNuevoEmpleado,function  (err, respuesta) {
 		if(err){ res.send('hay algo pasa 1'); }
 		console.log(respuesta);
-		if(respuesta!=='[]'){
+		if(respuesta.length!==0){
 		madb.empleados.remove(respuesta,function (err) {
 			if(err){ res.send('hay algo pasa aaaaaaañañaña'); }
 			else{ res.send("se ha eliminado"); }
 		});
+		}else{
+			res.send("no esta a quien buscabas");
 		}
 	});
 }
@@ -118,7 +122,6 @@ exports.liste = function(req, res){
 				datos.bodega = respuesta[i].bodega;
 				datos.activa = respuesta[i].activa;
 				enviar.push(datos);
-		console.log("------soy un puto salto de linea------");
 			}
 			res.json(enviar.slice());
 		} 
