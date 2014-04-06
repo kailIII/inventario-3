@@ -15,14 +15,8 @@ exports.activar = function  (req, res, next) {
 
 exports.activeEmpleado = function(req, res){
 	var id = req.params.id;
-	madb.empleados.findByIdAndUpdate(id, { $set: { activa: 'true' }}, function (err, resultado) {
+	madb.findByIdAndUpdate(id, { $set: { activa: 'true' }}, function (err, resultado) {
 	  if (err) return next(err);
-	  console.log(resultado.contraseña);
-	  if(resultado['contraseña']===""){
-	  	req.session.cambio = { cambio:'sip',id:resultado.id };
-	  	res.render("../vistas/cambiodecontraseña");
-	  }else{
-	  	res.send("livin in america americaa americaa");
-	  }
+	  res.send("cambie su contraseña");
 	});
 };

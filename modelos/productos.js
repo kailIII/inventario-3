@@ -7,9 +7,8 @@ var Schema = mongos.Schema;
 
 var productos = new Schema({
 	nombre:String,
-	cantidad:String,
-	precio:String,	
-	bodega:String
+	cantidad:String,	
+	bodega:String,
 });
 
-exports.productos = mongos.model("producto",productos);
+exports.productos = mongos.model("productos",productos);

@@ -1,4 +1,5 @@
 var productos = require("../modelos/productos");
+var bodega    = require("../modelos/bodega");
 
 /*-------------muy sexi barra separadora---------------*/
 
@@ -21,25 +22,18 @@ exports.listar = function (req, res){
 /*-------------muy sexi barra separadora---------------*/
 
 exports.ingrese = function (req, res){
-			var nombre = req.body.nombre;
-			var cantidad = req.body.cantidad;
-			var bodega = req.body.bodega;
-			var precio = req.body.precio;
-
-			infoproducto = {
-				nombre:nombre,
-				cantidad:cantidad,
-				precio:precio,
-				bodega:bodega
+	console.log('equipo azul');
+	var InfoBodega = {
+				idmayor:"resultado.id",
+				bodega:"5"
 			};
 
-			var nuevoProducto = new productos.productos(infoproducto);
-			nuevoProducto.save(function(err){
-				if (err) { console.log("ha fallado"); 
-					return next(err);
-				}
+			var nuevaBodega = new bodega.bodegas(InfoBodega);
+			console.log(InfoBodega);
+			nuevaBodega.pre("save",function(err){
+				if (err) { console.log("hay jueputa echele agua"); }
 				else{
-					res.send("Guardado");	
+				res.send("Guardado");	
 				}
 			});
 }
