@@ -1,0 +1,32 @@
+<form action="{%= url %}" method="post" enctype="application/json">
+	<div>
+		<label for="nombre">NOMBRE:</label>
+		<input type="text" name="nombre">
+	</div>
+		
+	<div>
+		<label for="apellido">APELLIDO:</label>
+		<input type="text" name="apellido">
+	</div>
+
+	<div>
+		<label for="correo">CORREO:</label>
+		<input type="text" name="correo">
+	</div>
+	
+	<div>
+		<label for="clave">CLAVE:</label>
+		<input type="password" name="clave">
+	</div>
+	
+
+	<div>
+		<label for="rango">RANGO:</label>
+		<input type="text" name="rango" value="<%= rango %>">
+	</div>
+
+		
+	<div>
+		<button type="submit">Enviar</button>
+	</div>
+</form>	

@@ -1,16 +1,38 @@
 {
-	"name"		  :"ProyectoIC",
-	"version"	  :"0.0.1",
-	"author"	  :"brian esteban bustos baquero",
-	"description" :"aplicacion web de manejo de inventario",
-	"dependencies" :{
-		"express" 	:"3.0.0",
-		"ejs"	  	:"*",
-		"mongoose"	:"3.8.0",
-		"nodemailer":"*",
-		"bcryptjs"	: "*"
-	},
-	"engines"	:{
-		"node"	:">=0.10"
-	}
+  "name": "inventario",
+  "version": "0.0.1",
+  "author": "brian esteban bustos baquero",
+  "description": "aplicacion web de manejo de inventario",
+  "scripts": {
+    "start": "node servidor/ NODE_ENV=produccion",
+    "test": "NODE_ENV=pruebas mocha pruebas/",
+    "dev": "node servidor/ NODE_ENV=desarrollo",
+    "build": "bower install"
+  },
+  "dependencies": {
+    "bcrypt": "^1.0.1",
+    "bcryptjs": "*",
+    "body-parser": "^1.15.1",
+    "cookie-parser": "^1.4.3",
+    "ejs": "*",
+    "express": "^4.13.4",
+    "express-session": "^1.13.0",
+    "faker": "^3.1.0",
+    "mongoose": "^4.4.20",
+    "morgan": "^1.7.0",
+    "nodemailer": "*",
+    "passport": "^0.3.2",
+    "passport-local": "^1.0.0"
+  },
+  "engines": {
+    "node": ">=0.10"
+  },
+  "devDependencies": {
+    "bower": "^1.8.0",
+    "chai": "^3.5.0",
+    "chai-http": "^3.0.0",
+    "cheerio": "^0.22.0",
+    "faker": "^3.1.0",
+    "mocha": "^3.2.0"
+  }
 }

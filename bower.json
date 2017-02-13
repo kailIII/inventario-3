@@ -1,0 +1,15 @@
+{
+  "name": "inventario",
+  "description": "aplicacion web de manejo de inventario",
+  "main": "",
+  "authors": [
+    "brian esteban bustos baquero"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/larous25/inventario",
+  "private": true,
+  "dependencies": {
+    "jQuery": "^3.0.0",
+    "marx": "^2.0.4"
+  }
+}

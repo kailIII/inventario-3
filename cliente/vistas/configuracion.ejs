@@ -1,0 +1,15 @@
+<%- include('../componentes/header') %>
+
+	<h1>Bienvenido a MDI (Manejador De Inventarios)</h1>
+	<article>
+		<section>
+			<p>
+				porfavor ingrese los datos el usuario abministrador para continuar
+			</p>
+		</section>
+		<section>
+			<%- include('../componentes/añadirUsuario', {url : 'configuracion' , rango: 'GENERAL'}) %>
+		</section>
+	</article>
+
+<%- include('../componentes/footer') %>
